@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://staysilentmur.github.io/staysilent/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Мамочке</title>
+    <link rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="https://staysilentmur.github.io/staysilent/img/heart.svg">
+    <link rel="stylesheet" href="./Мамочке_files/style.css">
+  <script>"use strict";
+
+// Animation Timeline
+var animationTimeline = function animationTimeline() {
+  // Spit chars that needs to be animated individually
+  var textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
+  var hbd = document.getElementsByClassName("wish-hbd")[0];
+
+  textBoxChars.innerHTML = "<span>" + textBoxChars.innerHTML.split("").join("</span><span>") + "</span";
+
+  hbd.innerHTML = "<span>" + hbd.innerHTML.split("").join("</span><span>") + "</span";
+
+  var ideaTextTrans = {
+    opacity: 0,
+    y: -20,
+    rotationX: 5,
+    skewX: "15deg"
+  };
+
+  var ideaTextTransLeave = {
+    opacity: 0,
+    y: 20,
+    rotationY: 5,
+    skewX: "-15deg"
+  };
+
+  var tl = new TimelineMax();
+
+  tl.to(".container", 0.1, {
+    visibility: "visible"
+  }).from(".one", 0.7, {
+    opacity: 0,
+    y: 10
+  }).from(".two", 0.4, {
+    opacity: 0,
+    y: 10
+  }).to(".one", 0.7, {
+    opacity: 0,
+    y: 10
+  }, "+=2.5").to(".two", 0.7, {
+    opacity: 0,
+    y: 10
+  }, "-=1").from(".three", 0.7, {
+    opacity: 0,
+    y: 10
+    // scale: 0.7
+  }).to(".three", 0.7, {
+    opacity: 0,
+    y: 10
+  }, "+=2").from(".four", 0.7, {
+    opacity: 0,
+    y: 10
+    // scale: 0.7
+  }).to(".four", 0.7, {
+    opacity: 0,
+    y: 10
+  }, "+=2").from(".idea-1", 0.7, ideaTextTrans).to(".idea-1", 0.7, ideaTextTransLeave, "+=1.5").from(".idea-2", 0.7, ideaTextTrans).to(".idea-2", 0.7, ideaTextTransLeave, "+=1.5").from(".idea-3", 0.7, ideaTextTrans).to(".idea-3 strong", 0.5, {
+    scale: 1.2,
+    x: 10,
+    backgroundColor: "rgb(186, 0, 0)",
+    color: "#fff"
+  }).to(".idea-3", 0.7, ideaTextTransLeave, "+=1.5").from(".idea-4", 0.7, ideaTextTrans).to(".idea-4", 0.7, ideaTextTransLeave, "+=1.5").from(".idea-5", 0.7, {
+    rotationX: 15,
+    rotationZ: -10,
+    skewY: "-5deg",
+    y: 50,
+    z: 10,
+    opacity: 0
+  }, "+=0.5").to(".idea-5 span", 0.7, {
+    rotation: 90,
+    x: 8
+  }, "+=0.4").to(".idea-5", 0.7, {
+    scale: 0.2,
+    opacity: 0
+  }, "+=2").staggerFrom(".idea-6 span", 0.8, {
+    scale: 3,
+    opacity: 0,
+    rotation: 15,
+    ease: Expo.easeOut
+  }, 0.2).staggerTo(".idea-6 span", 0.8, {
+    scale: 3,
+    opacity: 0,
+    rotation: -15,
+    ease: Expo.easeOut
+  }, 0.2, "+=1").staggerFromTo(".baloons img", 2.5, {
+    opacity: 0.9,
+    y: 1400
+  }, {
+    opacity: 1,
+    y: -1000
+  }, 0.2).from(".girl-dp", 0.5, {
+    scale: 3.5,
+    opacity: 0,
+    x: 25,
+    y: -25,
+    rotationZ: -45
+  }, "-=2").from(".hat", 0.5, {
+    x: -100,
+    y: 350,
+    rotation: -180,
+    opacity: 0
+  }).staggerFrom(".wish-hbd span", 0.7, {
+    opacity: 0,
+    y: -50,
+    // scale: 0.3,
+    rotation: 150,
+    skewX: "30deg",
+    ease: Elastic.easeOut.config(1, 0.5)
+  }, 0.1).staggerFromTo(".wish-hbd span", 0.7, {
+    scale: 1.4,
+    rotationY: 150
+  }, {
+    scale: 1,
+    rotationY: 0,
+    color: "#ff69b4",
+    ease: Expo.easeOut
+  }, 0.1, "party").from(".wish h5", 0.5, {
+    opacity: 0,
+    y: 10,
+    skewX: "-15deg"
+  }, "party").staggerTo(".eight svg", 1.5, {
+    visibility: "visible",
+    opacity: 0,
+    scale: 80,
+    repeat: 3,
+    repeatDelay: 1.4
+  }, 0.3).to(".six", 0.5, {
+    opacity: 0,
+    y: 30,
+    zIndex: "-1"
+  }).staggerFrom(".nine div", 1, ideaTextTrans, 1.2).to(".last-smile", 0.5, {
+    rotation: 90
+  }, "+=1");
+
+  // tl.seek("currentStep");
+  // tl.timeScale(2);
+
+  // Restart Animation on click
+  var replyBtn = document.getElementById("replay");
+  replyBtn.addEventListener("click", function () {
+    tl.restart();
+  });
+};
+
+// Import the data to customize and insert them into page
+var fetchData = function fetchData() {
+  fetch("customize.json").then(function (data) {
+    return data.json();
+  }).then(function (data) {
+    Object.keys(data).map(function (customData) {
+      if (data[customData] !== "") {
+        if (customData === "imagePath") {
+          document.getElementById(customData).setAttribute("src", data[customData]);
+        } else {
+          document.getElementById(customData).innerText = data[customData];
+        }
+      }
+    });
+  });
+};
+
+// Run fetch and animation in sequence
+var resolveFetch = function resolveFetch() {
+  return new Promise(function (resolve, reject) {
+    fetchData();
+    resolve("Fetch done!");
+  });
+};
+
+resolveFetch().then(animationTimeline());
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uanMiXSwibmFtZXMiOlsiYW5pbWF0aW9uVGltZWxpbmUiLCJ0ZXh0Qm94Q2hhcnMiLCJkb2N1bWVudCIsImdldEVsZW1lbnRzQnlDbGFzc05hbWUiLCJoYmQiLCJpbm5lckhUTUwiLCJzcGxpdCIsImpvaW4iLCJpZGVhVGV4dFRyYW5zIiwib3BhY2l0eSIsInkiLCJyb3RhdGlvblgiLCJza2V3WCIsImlkZWFUZXh0VHJhbnNMZWF2ZSIsInJvdGF0aW9uWSIsInRsIiwiVGltZWxpbmVNYXgiLCJ0byIsInZpc2liaWxpdHkiLCJmcm9tIiwic2NhbGUiLCJ4IiwiYmFja2dyb3VuZENvbG9yIiwiY29sb3IiLCJyb3RhdGlvbloiLCJza2V3WSIsInoiLCJyb3RhdGlvbiIsInN0YWdnZXJGcm9tIiwiZWFzZSIsIkV4cG8iLCJlYXNlT3V0Iiwic3RhZ2dlclRvIiwic3RhZ2dlckZyb21UbyIsIkVsYXN0aWMiLCJjb25maWciLCJyZXBlYXQiLCJyZXBlYXREZWxheSIsInpJbmRleCIsInJlcGx5QnRuIiwiZ2V0RWxlbWVudEJ5SWQiLCJhZGRFdmVudExpc3RlbmVyIiwicmVzdGFydCIsImZldGNoRGF0YSIsImZldGNoIiwidGhlbiIsImRhdGEiLCJqc29uIiwiT2JqZWN0Iiwia2V5cyIsIm1hcCIsImN1c3RvbURhdGEiLCJzZXRBdHRyaWJ1dGUiLCJpbm5lclRleHQiLCJyZXNvbHZlRmV0Y2giLCJQcm9taXNlIiwicmVzb2x2ZSIsInJlamVjdCJdLCJtYXBwaW5ncyI6Ijs7QUFBQTtBQUNBLElBQU1BLG9CQUFvQixTQUFwQkEsaUJBQW9CLEdBQU07QUFDOUI7QUFDQSxNQUFNQyxlQUFlQyxTQUFTQyxzQkFBVCxDQUFnQyxhQUFoQyxFQUErQyxDQUEvQyxDQUFyQjtBQUNBLE1BQU1DLE1BQU1GLFNBQVNDLHNCQUFULENBQWdDLFVBQWhDLEVBQTRDLENBQTVDLENBQVo7O0FBRUFGLGVBQWFJLFNBQWIsY0FBa0NKLGFBQWFJLFNBQWIsQ0FDL0JDLEtBRCtCLENBQ3pCLEVBRHlCLEVBRS9CQyxJQUYrQixDQUUxQixlQUYwQixDQUFsQzs7QUFJQUgsTUFBSUMsU0FBSixjQUF5QkQsSUFBSUMsU0FBSixDQUN0QkMsS0FEc0IsQ0FDaEIsRUFEZ0IsRUFFdEJDLElBRnNCLENBRWpCLGVBRmlCLENBQXpCOztBQUlBLE1BQU1DLGdCQUFnQjtBQUNwQkMsYUFBUyxDQURXO0FBRXBCQyxPQUFHLENBQUMsRUFGZ0I7QUFHcEJDLGVBQVcsQ0FIUztBQUlwQkMsV0FBTztBQUphLEdBQXRCOztBQU9BLE1BQU1DLHFCQUFxQjtBQUN6QkosYUFBUyxDQURnQjtBQUV6QkMsT0FBRyxFQUZzQjtBQUd6QkksZUFBVyxDQUhjO0FBSXpCRixXQUFPO0FBSmtCLEdBQTNCOztBQU9BLE1BQU1HLEtBQUssSUFBSUMsV0FBSixFQUFYOztBQUVBRCxLQUFHRSxFQUFILENBQU0sWUFBTixFQUFvQixHQUFwQixFQUF5QjtBQUN2QkMsZ0JBQVk7QUFEVyxHQUF6QixFQUdHQyxJQUhILENBR1EsTUFIUixFQUdnQixHQUhoQixFQUdxQjtBQUNqQlYsYUFBUyxDQURRO0FBRWpCQyxPQUFHO0FBRmMsR0FIckIsRUFPR1MsSUFQSCxDQU9RLE1BUFIsRUFPZ0IsR0FQaEIsRUFPcUI7QUFDakJWLGFBQVMsQ0FEUTtBQUVqQkMsT0FBRztBQUZjLEdBUHJCLEVBV0dPLEVBWEgsQ0FZSSxNQVpKLEVBYUksR0FiSixFQWNJO0FBQ0VSLGFBQVMsQ0FEWDtBQUVFQyxPQUFHO0FBRkwsR0FkSixFQWtCSSxPQWxCSixFQW9CR08sRUFwQkgsQ0FxQkksTUFyQkosRUFzQkksR0F0QkosRUF1Qkk7QUFDRVIsYUFBUyxDQURYO0FBRUVDLE9BQUc7QUFGTCxHQXZCSixFQTJCSSxLQTNCSixFQTZCR1MsSUE3QkgsQ0E2QlEsUUE3QlIsRUE2QmtCLEdBN0JsQixFQTZCdUI7QUFDbkJWLGFBQVMsQ0FEVTtBQUVuQkMsT0FBRztBQUNIO0FBSG1CLEdBN0J2QixFQWtDR08sRUFsQ0gsQ0FtQ0ksUUFuQ0osRUFvQ0ksR0FwQ0osRUFxQ0k7QUFDRVIsYUFBUyxDQURYO0FBRUVDLE9BQUc7QUFGTCxHQXJDSixFQXlDSSxLQXpDSixFQTJDR1MsSUEzQ0gsQ0EyQ1EsT0EzQ1IsRUEyQ2lCLEdBM0NqQixFQTJDc0I7QUFDbEJWLGFBQVMsQ0FEUztBQUVsQkMsT0FBRztBQUNIO0FBSGtCLEdBM0N0QixFQWdER08sRUFoREgsQ0FpREksT0FqREosRUFrREksR0FsREosRUFtREk7QUFDRVIsYUFBUyxDQURYO0FBRUVDLE9BQUc7QUFGTCxHQW5ESixFQXVESSxLQXZESixFQXlER1MsSUF6REgsQ0F5RFEsU0F6RFIsRUF5RG1CLEdBekRuQixFQXlEd0JYLGFBekR4QixFQTBER1MsRUExREgsQ0EwRE0sU0ExRE4sRUEwRGlCLEdBMURqQixFQTBEc0JKLGtCQTFEdEIsRUEwRDBDLE9BMUQxQyxFQTJER00sSUEzREgsQ0EyRFEsU0EzRFIsRUEyRG1CLEdBM0RuQixFQTJEd0JYLGFBM0R4QixFQTRER1MsRUE1REgsQ0E0RE0sU0E1RE4sRUE0RGlCLEdBNURqQixFQTREc0JKLGtCQTVEdEIsRUE0RDBDLE9BNUQxQyxFQTZER00sSUE3REgsQ0E2RFEsU0E3RFIsRUE2RG1CLEdBN0RuQixFQTZEd0JYLGFBN0R4QixFQThER1MsRUE5REgsQ0E4RE0sZ0JBOUROLEVBOER3QixHQTlEeEIsRUE4RDZCO0FBQ3pCRyxXQUFPLEdBRGtCO0FBRXpCQyxPQUFHLEVBRnNCO0FBR3pCQyxxQkFBaUIsZ0JBSFE7QUFJekJDLFdBQU87QUFKa0IsR0E5RDdCLEVBb0VHTixFQXBFSCxDQW9FTSxTQXBFTixFQW9FaUIsR0FwRWpCLEVBb0VzQkosa0JBcEV0QixFQW9FMEMsT0FwRTFDLEVBcUVHTSxJQXJFSCxDQXFFUSxTQXJFUixFQXFFbUIsR0FyRW5CLEVBcUV3QlgsYUFyRXhCLEVBc0VHUyxFQXRFSCxDQXNFTSxTQXRFTixFQXNFaUIsR0F0RWpCLEVBc0VzQkosa0JBdEV0QixFQXNFMEMsT0F0RTFDLEVBdUVHTSxJQXZFSCxDQXdFSSxTQXhFSixFQXlFSSxHQXpFSixFQTBFSTtBQUNFUixlQUFXLEVBRGI7QUFFRWEsZUFBVyxDQUFDLEVBRmQ7QUFHRUMsV0FBTyxPQUhUO0FBSUVmLE9BQUcsRUFKTDtBQUtFZ0IsT0FBRyxFQUxMO0FBTUVqQixhQUFTO0FBTlgsR0ExRUosRUFrRkksT0FsRkosRUFvRkdRLEVBcEZILENBcUZJLGNBckZKLEVBc0ZJLEdBdEZKLEVBdUZJO0FBQ0VVLGNBQVUsRUFEWjtBQUVFTixPQUFHO0FBRkwsR0F2RkosRUEyRkksT0EzRkosRUE2RkdKLEVBN0ZILENBOEZJLFNBOUZKLEVBK0ZJLEdBL0ZKLEVBZ0dJO0FBQ0VHLFdBQU8sR0FEVDtBQUVFWCxhQUFTO0FBRlgsR0FoR0osRUFvR0ksS0FwR0osRUFzR0dtQixXQXRHSCxDQXVHSSxjQXZHSixFQXdHSSxHQXhHSixFQXlHSTtBQUNFUixXQUFPLENBRFQ7QUFFRVgsYUFBUyxDQUZYO0FBR0VrQixjQUFVLEVBSFo7QUFJRUUsVUFBTUMsS0FBS0M7QUFKYixHQXpHSixFQStHSSxHQS9HSixFQWlIR0MsU0FqSEgsQ0FrSEksY0FsSEosRUFtSEksR0FuSEosRUFvSEk7QUFDRVosV0FBTyxDQURUO0FBRUVYLGFBQVMsQ0FGWDtBQUdFa0IsY0FBVSxDQUFDLEVBSGI7QUFJRUUsVUFBTUMsS0FBS0M7QUFKYixHQXBISixFQTBISSxHQTFISixFQTJISSxLQTNISixFQTZIR0UsYUE3SEgsQ0E4SEksY0E5SEosRUErSEksR0EvSEosRUFnSUk7QUFDRXhCLGFBQVMsR0FEWDtBQUVFQyxPQUFHO0FBRkwsR0FoSUosRUFvSUk7QUFDRUQsYUFBUyxDQURYO0FBRUVDLE9BQUcsQ0FBQztBQUZOLEdBcElKLEVBd0lJLEdBeElKLEVBMElHUyxJQTFJSCxDQTJJSSxVQTNJSixFQTRJSSxHQTVJSixFQTZJSTtBQUNFQyxXQUFPLEdBRFQ7QUFFRVgsYUFBUyxDQUZYO0FBR0VZLE9BQUcsRUFITDtBQUlFWCxPQUFHLENBQUMsRUFKTjtBQUtFYyxlQUFXLENBQUM7QUFMZCxHQTdJSixFQW9KSSxLQXBKSixFQXNKR0wsSUF0SkgsQ0FzSlEsTUF0SlIsRUFzSmdCLEdBdEpoQixFQXNKcUI7QUFDakJFLE9BQUcsQ0FBQyxHQURhO0FBRWpCWCxPQUFHLEdBRmM7QUFHakJpQixjQUFVLENBQUMsR0FITTtBQUlqQmxCLGFBQVM7QUFKUSxHQXRKckIsRUE0SkdtQixXQTVKSCxDQTZKSSxnQkE3SkosRUE4SkksR0E5SkosRUErSkk7QUFDRW5CLGFBQVMsQ0FEWDtBQUVFQyxPQUFHLENBQUMsRUFGTjtBQUdFO0FBQ0FpQixjQUFVLEdBSlo7QUFLRWYsV0FBTyxPQUxUO0FBTUVpQixVQUFNSyxRQUFRSCxPQUFSLENBQWdCSSxNQUFoQixDQUF1QixDQUF2QixFQUEwQixHQUExQjtBQU5SLEdBL0pKLEVBdUtJLEdBdktKLEVBeUtHRixhQXpLSCxDQTBLSSxnQkExS0osRUEyS0ksR0EzS0osRUE0S0k7QUFDRWIsV0FBTyxHQURUO0FBRUVOLGVBQVc7QUFGYixHQTVLSixFQWdMSTtBQUNFTSxXQUFPLENBRFQ7QUFFRU4sZUFBVyxDQUZiO0FBR0VTLFdBQU8sU0FIVDtBQUlFTSxVQUFNQyxLQUFLQztBQUpiLEdBaExKLEVBc0xJLEdBdExKLEVBdUxJLE9BdkxKLEVBeUxHWixJQXpMSCxDQTBMSSxVQTFMSixFQTJMSSxHQTNMSixFQTRMSTtBQUNFVixhQUFTLENBRFg7QUFFRUMsT0FBRyxFQUZMO0FBR0VFLFdBQU87QUFIVCxHQTVMSixFQWlNSSxPQWpNSixFQW1NR29CLFNBbk1ILENBb01JLFlBcE1KLEVBcU1JLEdBck1KLEVBc01JO0FBQ0VkLGdCQUFZLFNBRGQ7QUFFRVQsYUFBUyxDQUZYO0FBR0VXLFdBQU8sRUFIVDtBQUlFZ0IsWUFBUSxDQUpWO0FBS0VDLGlCQUFhO0FBTGYsR0F0TUosRUE2TUksR0E3TUosRUErTUdwQixFQS9NSCxDQStNTSxNQS9NTixFQStNYyxHQS9NZCxFQStNbUI7QUFDZlIsYUFBUyxDQURNO0FBRWZDLE9BQUcsRUFGWTtBQUdmNEIsWUFBUTtBQUhPLEdBL01uQixFQW9OR1YsV0FwTkgsQ0FvTmUsV0FwTmYsRUFvTjRCLENBcE41QixFQW9OK0JwQixhQXBOL0IsRUFvTjhDLEdBcE45QyxFQXFOR1MsRUFyTkgsQ0FzTkksYUF0TkosRUF1TkksR0F2TkosRUF3Tkk7QUFDRVUsY0FBVTtBQURaLEdBeE5KLEVBMk5JLEtBM05KOztBQThOQTtBQUNBOztBQUVBO0FBQ0EsTUFBTVksV0FBV3JDLFNBQVNzQyxjQUFULENBQXdCLFFBQXhCLENBQWpCO0FBQ0FELFdBQVNFLGdCQUFULENBQTBCLE9BQTFCLEVBQW1DLFlBQU07QUFDdkMxQixPQUFHMkIsT0FBSDtBQUNELEdBRkQ7QUFHRCxDQW5RRDs7QUFxUUE7QUFDQSxJQUFNQyxZQUFZLFNBQVpBLFNBQVksR0FBTTtBQUN0QkMsUUFBTSxnQkFBTixFQUNHQyxJQURILENBQ1EsVUFBQ0MsSUFBRDtBQUFBLFdBQVVBLEtBQUtDLElBQUwsRUFBVjtBQUFBLEdBRFIsRUFFR0YsSUFGSCxDQUVRLFVBQUNDLElBQUQsRUFBVTtBQUNkRSxXQUFPQyxJQUFQLENBQVlILElBQVosRUFBa0JJLEdBQWxCLENBQXNCLFVBQUNDLFVBQUQsRUFBZ0I7QUFDcEMsVUFBSUwsS0FBS0ssVUFBTCxNQUFxQixFQUF6QixFQUE2QjtBQUMzQixZQUFJQSxlQUFlLFdBQW5CLEVBQWdDO0FBQzlCakQsbUJBQ0dzQyxjQURILENBQ2tCVyxVQURsQixFQUVHQyxZQUZILENBRWdCLEtBRmhCLEVBRXVCTixLQUFLSyxVQUFMLENBRnZCO0FBR0QsU0FKRCxNQUlPO0FBQ0xqRCxtQkFBU3NDLGNBQVQsQ0FBd0JXLFVBQXhCLEVBQW9DRSxTQUFwQyxHQUFnRFAsS0FBS0ssVUFBTCxDQUFoRDtBQUNEO0FBQ0Y7QUFDRixLQVZEO0FBV0QsR0FkSDtBQWVELENBaEJEOztBQWtCQTtBQUNBLElBQU1HLGVBQWUsU0FBZkEsWUFBZSxHQUFNO0FBQ3pCLFNBQU8sSUFBSUMsT0FBSixDQUFZLFVBQUNDLE9BQUQsRUFBVUMsTUFBVixFQUFxQjtBQUN0Q2Q7QUFDQWEsWUFBUSxhQUFSO0FBQ0QsR0FITSxDQUFQO0FBSUQsQ0FMRDs7QUFPQUYsZUFBZVQsSUFBZixDQUFvQjdDLG1CQUFwQiIsImZpbGUiOiJtYWluLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQW5pbWF0aW9uIFRpbWVsaW5lXG5jb25zdCBhbmltYXRpb25UaW1lbGluZSA9ICgpID0+IHtcbiAgLy8gU3BpdCBjaGFycyB0aGF0IG5lZWRzIHRvIGJlIGFuaW1hdGVkIGluZGl2aWR1YWxseVxuICBjb25zdCB0ZXh0Qm94Q2hhcnMgPSBkb2N1bWVudC5nZXRFbGVtZW50c0J5Q2xhc3NOYW1lKFwiaGJkLWNoYXRib3hcIilbMF07XG4gIGNvbnN0IGhiZCA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlDbGFzc05hbWUoXCJ3aXNoLWhiZFwiKVswXTtcblxuICB0ZXh0Qm94Q2hhcnMuaW5uZXJIVE1MID0gYDxzcGFuPiR7dGV4dEJveENoYXJzLmlubmVySFRNTFxuICAgIC5zcGxpdChcIlwiKVxuICAgIC5qb2luKFwiPC9zcGFuPjxzcGFuPlwiKX08L3NwYW5gO1xuXG4gIGhiZC5pbm5lckhUTUwgPSBgPHNwYW4+JHtoYmQuaW5uZXJIVE1MXG4gICAgLnNwbGl0KFwiXCIpXG4gICAgLmpvaW4oXCI8L3NwYW4+PHNwYW4+XCIpfTwvc3BhbmA7XG5cbiAgY29uc3QgaWRlYVRleHRUcmFucyA9IHtcbiAgICBvcGFjaXR5OiAwLFxuICAgIHk6IC0yMCxcbiAgICByb3RhdGlvblg6IDUsXG4gICAgc2tld1g6IFwiMTVkZWdcIixcbiAgfTtcblxuICBjb25zdCBpZGVhVGV4dFRyYW5zTGVhdmUgPSB7XG4gICAgb3BhY2l0eTogMCxcbiAgICB5OiAyMCxcbiAgICByb3RhdGlvblk6IDUsXG4gICAgc2tld1g6IFwiLTE1ZGVnXCIsXG4gIH07XG5cbiAgY29uc3QgdGwgPSBuZXcgVGltZWxpbmVNYXgoKTtcblxuICB0bC50byhcIi5jb250YWluZXJcIiwgMC4xLCB7XG4gICAgdmlzaWJpbGl0eTogXCJ2aXNpYmxlXCIsXG4gIH0pXG4gICAgLmZyb20oXCIub25lXCIsIDAuNywge1xuICAgICAgb3BhY2l0eTogMCxcbiAgICAgIHk6IDEwLFxuICAgIH0pXG4gICAgLmZyb20oXCIudHdvXCIsIDAuNCwge1xuICAgICAgb3BhY2l0eTogMCxcbiAgICAgIHk6IDEwLFxuICAgIH0pXG4gICAgLnRvKFxuICAgICAgXCIub25lXCIsXG4gICAgICAwLjcsXG4gICAgICB7XG4gICAgICAgIG9wYWNpdHk6IDAsXG4gICAgICAgIHk6IDEwLFxuICAgICAgfSxcbiAgICAgIFwiKz0yLjVcIlxuICAgIClcbiAgICAudG8oXG4gICAgICBcIi50d29cIixcbiAgICAgIDAuNyxcbiAgICAgIHtcbiAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgICAgeTogMTAsXG4gICAgICB9LFxuICAgICAgXCItPTFcIlxuICAgIClcbiAgICAuZnJvbShcIi50aHJlZVwiLCAwLjcsIHtcbiAgICAgIG9wYWNpdHk6IDAsXG4gICAgICB5OiAxMCxcbiAgICAgIC8vIHNjYWxlOiAwLjdcbiAgICB9KVxuICAgIC50byhcbiAgICAgIFwiLnRocmVlXCIsXG4gICAgICAwLjcsXG4gICAgICB7XG4gICAgICAgIG9wYWNpdHk6IDAsXG4gICAgICAgIHk6IDEwLFxuICAgICAgfSxcbiAgICAgIFwiKz0yXCJcbiAgICApXG4gICAgLmZyb20oXCIuZm91clwiLCAwLjcsIHtcbiAgICAgIG9wYWNpdHk6IDAsXG4gICAgICB5OiAxMCxcbiAgICAgIC8vIHNjYWxlOiAwLjdcbiAgICB9KVxuICAgIC50byhcbiAgICAgIFwiLmZvdXJcIixcbiAgICAgIDAuNyxcbiAgICAgIHtcbiAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgICAgeTogMTAsXG4gICAgICB9LFxuICAgICAgXCIrPTJcIlxuICAgIClcbiAgICAuZnJvbShcIi5pZGVhLTFcIiwgMC43LCBpZGVhVGV4dFRyYW5zKVxuICAgIC50byhcIi5pZGVhLTFcIiwgMC43LCBpZGVhVGV4dFRyYW5zTGVhdmUsIFwiKz0xLjVcIilcbiAgICAuZnJvbShcIi5pZGVhLTJcIiwgMC43LCBpZGVhVGV4dFRyYW5zKVxuICAgIC50byhcIi5pZGVhLTJcIiwgMC43LCBpZGVhVGV4dFRyYW5zTGVhdmUsIFwiKz0xLjVcIilcbiAgICAuZnJvbShcIi5pZGVhLTNcIiwgMC43LCBpZGVhVGV4dFRyYW5zKVxuICAgIC50byhcIi5pZGVhLTMgc3Ryb25nXCIsIDAuNSwge1xuICAgICAgc2NhbGU6IDEuMixcbiAgICAgIHg6IDEwLFxuICAgICAgYmFja2dyb3VuZENvbG9yOiBcInJnYigxODYsIDAsIDApXCIsXG4gICAgICBjb2xvcjogXCIjZmZmXCIsXG4gICAgfSlcbiAgICAudG8oXCIuaWRlYS0zXCIsIDAuNywgaWRlYVRleHRUcmFuc0xlYXZlLCBcIis9MS41XCIpXG4gICAgLmZyb20oXCIuaWRlYS00XCIsIDAuNywgaWRlYVRleHRUcmFucylcbiAgICAudG8oXCIuaWRlYS00XCIsIDAuNywgaWRlYVRleHRUcmFuc0xlYXZlLCBcIis9MS41XCIpXG4gICAgLmZyb20oXG4gICAgICBcIi5pZGVhLTVcIixcbiAgICAgIDAuNyxcbiAgICAgIHtcbiAgICAgICAgcm90YXRpb25YOiAxNSxcbiAgICAgICAgcm90YXRpb25aOiAtMTAsXG4gICAgICAgIHNrZXdZOiBcIi01ZGVnXCIsXG4gICAgICAgIHk6IDUwLFxuICAgICAgICB6OiAxMCxcbiAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgIH0sXG4gICAgICBcIis9MC41XCJcbiAgICApXG4gICAgLnRvKFxuICAgICAgXCIuaWRlYS01IHNwYW5cIixcbiAgICAgIDAuNyxcbiAgICAgIHtcbiAgICAgICAgcm90YXRpb246IDkwLFxuICAgICAgICB4OiA4LFxuICAgICAgfSxcbiAgICAgIFwiKz0wLjRcIlxuICAgIClcbiAgICAudG8oXG4gICAgICBcIi5pZGVhLTVcIixcbiAgICAgIDAuNyxcbiAgICAgIHtcbiAgICAgICAgc2NhbGU6IDAuMixcbiAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgIH0sXG4gICAgICBcIis9MlwiXG4gICAgKVxuICAgIC5zdGFnZ2VyRnJvbShcbiAgICAgIFwiLmlkZWEtNiBzcGFuXCIsXG4gICAgICAwLjgsXG4gICAgICB7XG4gICAgICAgIHNjYWxlOiAzLFxuICAgICAgICBvcGFjaXR5OiAwLFxuICAgICAgICByb3RhdGlvbjogMTUsXG4gICAgICAgIGVhc2U6IEV4cG8uZWFzZU91dCxcbiAgICAgIH0sXG4gICAgICAwLjJcbiAgICApXG4gICAgLnN0YWdnZXJUbyhcbiAgICAgIFwiLmlkZWEtNiBzcGFuXCIsXG4gICAgICAwLjgsXG4gICAgICB7XG4gICAgICAgIHNjYWxlOiAzLFxuICAgICAgICBvcGFjaXR5OiAwLFxuICAgICAgICByb3RhdGlvbjogLTE1LFxuICAgICAgICBlYXNlOiBFeHBvLmVhc2VPdXQsXG4gICAgICB9LFxuICAgICAgMC4yLFxuICAgICAgXCIrPTFcIlxuICAgIClcbiAgICAuc3RhZ2dlckZyb21UbyhcbiAgICAgIFwiLmJhbG9vbnMgaW1nXCIsXG4gICAgICAyLjUsXG4gICAgICB7XG4gICAgICAgIG9wYWNpdHk6IDAuOSxcbiAgICAgICAgeTogMTQwMCxcbiAgICAgIH0sXG4gICAgICB7XG4gICAgICAgIG9wYWNpdHk6IDEsXG4gICAgICAgIHk6IC0xMDAwLFxuICAgICAgfSxcbiAgICAgIDAuMlxuICAgIClcbiAgICAuZnJvbShcbiAgICAgIFwiLmdpcmwtZHBcIixcbiAgICAgIDAuNSxcbiAgICAgIHtcbiAgICAgICAgc2NhbGU6IDMuNSxcbiAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgICAgeDogMjUsXG4gICAgICAgIHk6IC0yNSxcbiAgICAgICAgcm90YXRpb25aOiAtNDUsXG4gICAgICB9LFxuICAgICAgXCItPTJcIlxuICAgIClcbiAgICAuZnJvbShcIi5oYXRcIiwgMC41LCB7XG4gICAgICB4OiAtMTAwLFxuICAgICAgeTogMzUwLFxuICAgICAgcm90YXRpb246IC0xODAsXG4gICAgICBvcGFjaXR5OiAwLFxuICAgIH0pXG4gICAgLnN0YWdnZXJGcm9tKFxuICAgICAgXCIud2lzaC1oYmQgc3BhblwiLFxuICAgICAgMC43LFxuICAgICAge1xuICAgICAgICBvcGFjaXR5OiAwLFxuICAgICAgICB5OiAtNTAsXG4gICAgICAgIC8vIHNjYWxlOiAwLjMsXG4gICAgICAgIHJvdGF0aW9uOiAxNTAsXG4gICAgICAgIHNrZXdYOiBcIjMwZGVnXCIsXG4gICAgICAgIGVhc2U6IEVsYXN0aWMuZWFzZU91dC5jb25maWcoMSwgMC41KSxcbiAgICAgIH0sXG4gICAgICAwLjFcbiAgICApXG4gICAgLnN0YWdnZXJGcm9tVG8oXG4gICAgICBcIi53aXNoLWhiZCBzcGFuXCIsXG4gICAgICAwLjcsXG4gICAgICB7XG4gICAgICAgIHNjYWxlOiAxLjQsXG4gICAgICAgIHJvdGF0aW9uWTogMTUwLFxuICAgICAgfSxcbiAgICAgIHtcbiAgICAgICAgc2NhbGU6IDEsXG4gICAgICAgIHJvdGF0aW9uWTogMCxcbiAgICAgICAgY29sb3I6IFwiI2ZmNjliNFwiLFxuICAgICAgICBlYXNlOiBFeHBvLmVhc2VPdXQsXG4gICAgICB9LFxuICAgICAgMC4xLFxuICAgICAgXCJwYXJ0eVwiXG4gICAgKVxuICAgIC5mcm9tKFxuICAgICAgXCIud2lzaCBoNVwiLFxuICAgICAgMC41LFxuICAgICAge1xuICAgICAgICBvcGFjaXR5OiAwLFxuICAgICAgICB5OiAxMCxcbiAgICAgICAgc2tld1g6IFwiLTE1ZGVnXCIsXG4gICAgICB9LFxuICAgICAgXCJwYXJ0eVwiXG4gICAgKVxuICAgIC5zdGFnZ2VyVG8oXG4gICAgICBcIi5laWdodCBzdmdcIixcbiAgICAgIDEuNSxcbiAgICAgIHtcbiAgICAgICAgdmlzaWJpbGl0eTogXCJ2aXNpYmxlXCIsXG4gICAgICAgIG9wYWNpdHk6IDAsXG4gICAgICAgIHNjYWxlOiA4MCxcbiAgICAgICAgcmVwZWF0OiAzLFxuICAgICAgICByZXBlYXREZWxheTogMS40LFxuICAgICAgfSxcbiAgICAgIDAuM1xuICAgIClcbiAgICAudG8oXCIuc2l4XCIsIDAuNSwge1xuICAgICAgb3BhY2l0eTogMCxcbiAgICAgIHk6IDMwLFxuICAgICAgekluZGV4OiBcIi0xXCIsXG4gICAgfSlcbiAgICAuc3RhZ2dlckZyb20oXCIubmluZSBkaXZcIiwgMSwgaWRlYVRleHRUcmFucywgMS4yKVxuICAgIC50byhcbiAgICAgIFwiLmxhc3Qtc21pbGVcIixcbiAgICAgIDAuNSxcbiAgICAgIHtcbiAgICAgICAgcm90YXRpb246IDkwLFxuICAgICAgfSxcbiAgICAgIFwiKz0xXCJcbiAgICApO1xuXG4gIC8vIHRsLnNlZWsoXCJjdXJyZW50U3RlcFwiKTtcbiAgLy8gdGwudGltZVNjYWxlKDIpO1xuXG4gIC8vIFJlc3RhcnQgQW5pbWF0aW9uIG9uIGNsaWNrXG4gIGNvbnN0IHJlcGx5QnRuID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJyZXBsYXlcIik7XG4gIHJlcGx5QnRuLmFkZEV2ZW50TGlzdGVuZXIoXCJjbGlja1wiLCAoKSA9PiB7XG4gICAgdGwucmVzdGFydCgpO1xuICB9KTtcbn07XG5cbi8vIEltcG9ydCB0aGUgZGF0YSB0byBjdXN0b21pemUgYW5kIGluc2VydCB0aGVtIGludG8gcGFnZVxuY29uc3QgZmV0Y2hEYXRhID0gKCkgPT4ge1xuICBmZXRjaChcImN1c3RvbWl6ZS5qc29uXCIpXG4gICAgLnRoZW4oKGRhdGEpID0+IGRhdGEuanNvbigpKVxuICAgIC50aGVuKChkYXRhKSA9PiB7XG4gICAgICBPYmplY3Qua2V5cyhkYXRhKS5tYXAoKGN1c3RvbURhdGEpID0+IHtcbiAgICAgICAgaWYgKGRhdGFbY3VzdG9tRGF0YV0gIT09IFwiXCIpIHtcbiAgICAgICAgICBpZiAoY3VzdG9tRGF0YSA9PT0gXCJpbWFnZVBhdGhcIikge1xuICAgICAgICAgICAgZG9jdW1lbnRcbiAgICAgICAgICAgICAgLmdldEVsZW1lbnRCeUlkKGN1c3RvbURhdGEpXG4gICAgICAgICAgICAgIC5zZXRBdHRyaWJ1dGUoXCJzcmNcIiwgZGF0YVtjdXN0b21EYXRhXSk7XG4gICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKGN1c3RvbURhdGEpLmlubmVyVGV4dCA9IGRhdGFbY3VzdG9tRGF0YV07XG4gICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICB9KTtcbiAgICB9KTtcbn07XG5cbi8vIFJ1biBmZXRjaCBhbmQgYW5pbWF0aW9uIGluIHNlcXVlbmNlXG5jb25zdCByZXNvbHZlRmV0Y2ggPSAoKSA9PiB7XG4gIHJldHVybiBuZXcgUHJvbWlzZSgocmVzb2x2ZSwgcmVqZWN0KSA9PiB7XG4gICAgZmV0Y2hEYXRhKCk7XG4gICAgcmVzb2x2ZShcIkZldGNoIGRvbmUhXCIpO1xuICB9KTtcbn07XG5cbnJlc29sdmVGZXRjaCgpLnRoZW4oYW5pbWF0aW9uVGltZWxpbmUoKSk7XG4iXX0=</script></head>
+
+  <body>
+    <div class="container" style="visibility: visible;">
+      <div class="one" style="opacity: 0; transform: matrix(1, 0, 0, 1, 0, 10);">
+        <h1 class="one" style="opacity: 0; transform: matrix(1, 0, 0, 1, 0, 10);">
+          <span id="name">Дорогая, мамочка</span>
+        </h1>
+        <p class="two" id="greetingText" style="opacity: 0; transform: matrix(1, 0, 0, 1, 0, 10);">сегодня твой день!</p>
+      </div>
+      <div class="three" style="opacity: 0; transform: matrix(1, 0, 0, 1, 0, 10);">
+        <p>Я очень люблю тебя!</p>
+      </div>
+      <div class="four" style="opacity: 0; transform: matrix(1, 0, 0, 1, 0, 10);">
+        <p> Ты мой дар, посланный самим   Богом ❤️</p>
+        <div class="text-box">
+          <p class="hbd-chatbox"><span>
+</span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span><span> </span></p>
+          <p class="fake-btn"></p>
+        </div>
+      </div>
+      <div class="five">
+        <p class="idea-1" style="opacity: 0; transform: matrix3d(0.996195, 0, -0.0871557, 0, -0.258819, 0.965926, 0, 0, 0.0871557, 0, 0.996195, 0, 0, 20, 0, 1);">Я очень благордарна тебе</p>
+        <p class="idea-2" style="opacity: 0; transform: matrix3d(0.996195, 0, -0.0871557, 0, -0.258819, 0.965926, 0, 0, 0.0871557, 0, 0.996195, 0, 0, 20, 0, 1);">за свет и любовь в моей жизни</p>
+        <p class="idea-3" style="opacity: 0; transform: matrix3d(0.996195, 0, -0.0871557, 0, -0.258819, 0.965926, 0, 0, 0.0871557, 0, 0.996195, 0, 0, 20, 0, 1);">
+          желаю, чтобы твоя жизнь была полна<strong style="color: rgb(255, 255, 255);background-color: rgb(247,110,207);transform: matrix(1.2, 0, 0, 1.2, 10, 0);">любви</strong>.
+        </p>
+        <p class="idea-4" style="opacity: 0; transform: matrix3d(0.996195, 0, -0.0871557, 0, -0.258819, 0.965926, 0, 0, 0.0871557, 0, 0.996195, 0, 0, 20, 0, 1);">Потому что,</p>
+        <p class="idea-5" style="opacity: 0; transform: matrix(0.2, 0, 0, 0.2, 0, 0);">
+          Ты сама любовь
+          <span style="transform: matrix(0, 1, -1, 0, 8, 0);">✦</span>
+        </p>
+        <p class="idea-6">
+          <span style="opacity: 0; transform: matrix(2.89777, -0.77645, 0.77645, 2.89777, 0, 0);">🌷</span>
+        </p>
+      </div>
+      <div class="six" style="z-index: -1; opacity: 0; transform: matrix(1, 0, 0, 1, 0, 30);">
+        <img src="./Мамочке_files/vector.jpg" alt="" class="girl-dp" id="imagePath" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);">
+        <div class="wish">
+          <h3 class="wish-hbd"><span style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0); color: rgb(255, 105, 180);">❤</span><span style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0); color: rgb(255, 105, 180);">️</span></h3>
+          <h5 id="wishText" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"></h5>
+        </div>
+      </div>
+      <div class="seven">
+        <div class="baloons">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <!-- <img src="img/music-note.svg" alt="" /> -->
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <!-- <img src="img/happy.svg" alt="" /> -->
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <!-- <img src="img/music-note.svg" alt="" /> -->
+          <!-- <img src="img/smiling.svg" /> -->
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <!-- <img src="img/music-note.svg" alt="" /> -->
+          <!-- <img src="img/smiling.svg" /> -->
+          
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+         
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <img src="./Мамочке_files/balloon.svg" alt="" style="opacity: 1; transform: matrix(1, 0, 0, 1, 0, -1000);">
+          <!-- <img src="img/music-note.svg" alt="" /> -->
+          <!-- <img src="img/heart.svg" />
+          
+          <img src="img/happy.svg" alt="" />
+          <img src="img/balloon.svg" alt="" />
+          <img src="img/music-note.svg" alt="" /> -->
+          
+          <!-- <img src="img/heart.svg" /> -->
+          <!-- <img src="img/happy.svg" alt="" /> -->
+        </div>
+      </div>
+      <div class="eight">
+        <svg viewBox="0 0 40 40" xmlnssvg="" heart.svg.org="" 2000="" svg"="" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+        <circle cx="20" cy="20" r="20"></circle>
+      </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="opacity: 0; visibility: visible; transform: matrix(80, 0, 0, 80, 0, 0);">
+          <circle cx="20" cy="20" r="20"></circle>
+        </svg>
+      </div>
+      <div class="nine">
+        <p></p>
+        <p id="replay"></p>
+        <p class="last-smile" style="transform: matrix(0, 1, -1, 0, 0, 0);"></p>
+      </div>
+    </div>
+  
+
+  <script src="./Мамочке_files/babel.min.js.Без названия"></script>
+  <script src="./Мамочке_files/TweenMax.min.js.Без названия"></script>
+  <script type="text/babel" src="./Мамочке_files/main.js.Без названия"></script>
+
+</body></html>
